@@ -7,6 +7,8 @@ Data a0 a1 a2 a3 a4 a5....
 This implementation can allow to start from highpass.
 Thus, for example, data of length 9 will have 5 highpass and 4 lowpass elements if startFroHigh is applied.
 
+Implementation uses some tools from James Fowler's QccPack (http://qccpack.sourceforge.net/)
+Ispired by https://www.organicdesign.co.nz/Wavelet.c
 
 upper library: libxyn.h
 
