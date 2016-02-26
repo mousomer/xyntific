@@ -4,12 +4,17 @@ Fast, lifting impelementation, C wavelet lib. Designed for non-dyadic data IO (e
 Data files are assumed to be headerless, so user should retain lists of sizes (cols/rows) for data files. 
 
 All wavelet transforms can be applied on any data size. Classical wavelet application is:
+
 Data a0 a1 a2 a3 a4 a5....
+
 --> low0 high1 low2 high3....
+
 This implementation can allow to start from highpass.
+
 Thus, for example, data of length 9 will have 5 highpass and 4 lowpass elements if startFroHigh is applied.
 
-Implementation uses some tools from James Fowler's QccPack (http://qccpack.sourceforge.net/)
+Implementation uses some tools from James Fowler's QccPack (http://qccpack.sourceforge.net/).
+
 Ispired by https://www.organicdesign.co.nz/Wavelet.c
 
 
