@@ -1,6 +1,8 @@
 # xyntific
-Fast, lifting impelementation, C wavelet lib. Designed for non-dyadic data IO (e.g. can handle 39x39 images)
+Fast, lifting impelementation, C wavelet lib. Designed for non-dyadic data IO (e.g. can handle 39x39 images).
+
 Data files are assumed to be headerless, so user should retain lists of sizes (cols/rows) for data files. 
+
 All wavelet transforms can be applied on any data size. Classical wavelet application is:
 Data a0 a1 a2 a3 a4 a5....
 --> low0 high1 low2 high3....
@@ -10,6 +12,8 @@ Thus, for example, data of length 9 will have 5 highpass and 4 lowpass elements 
 Implementation uses some tools from James Fowler's QccPack (http://qccpack.sourceforge.net/)
 Ispired by https://www.organicdesign.co.nz/Wavelet.c
 
+
+# Structure
 upper library: libxyn.h
 
 general options - 
