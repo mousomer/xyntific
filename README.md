@@ -1,5 +1,5 @@
 # xyntific
-**xyntific** is a fast lifting scheme impelementation of popular wavelet transforms, written in low level C. This library is designed for non-dyadic data (e.g. can handle 39x39 images).
+**xyntific** is a fast lifting scheme impelementation of popular wavelet transforms (non dyadic DWT), written in low level C. This library is designed for non-dyadic data without resizing the input to dyadic length (i.e. powers of 2). Thus, non dyadic DWT can handle 39x39 images to maximum level, **without** intermediate buffering to 64x64.
 
 Written and maintained by Omer Moussaffi (mousomer@gmail.com). Published under GPL 3.0.
 
