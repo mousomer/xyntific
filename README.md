@@ -67,7 +67,7 @@ Ispired by https://www.organicdesign.co.nz/Wavelet.c
 
 
     dwt2d/idwt2d [-v ] [-out outName] [-type dataType] [-lift ] [-inPlace ] [-startHigh ] [-nC nC] nR waveName inpName
-        same as 1d, only 2d
+        seperable 2d wavelet transform - preform 1d transform and rows and cols
         -nC sets number of columns (default is calculated from filesize/nR)
         nR number of data rows
 
