@@ -1,6 +1,8 @@
 # xyntific
 **xyntific** is a fast lifting scheme impelementation of popular wavelet transforms, written in low level C. This library is designed for non-dyadic data (e.g. can handle 39x39 images).
 
+Written and maintained by Omer Moussaffi (mousomer@gmail.com). Published under GPL 3.0.
+
 Data files are assumed to be headerless, so user should retain lists of sizes (cols/rows) for data files. 
 
 All wavelet transforms can be applied on any data size. Classical wavelet application is:
