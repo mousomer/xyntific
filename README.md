@@ -1,23 +1,39 @@
 # xyntific
-**xyntific** is a fast lifting scheme impelementation of popular wavelet transforms, written in low level C. This library is designed for non-dyadic data IO (e.g. can handle 39x39 images).
+**xyntific** is a fast lifting scheme impelementation of popular wavelet transforms, written in low level C. This library is designed for non-dyadic data (e.g. can handle 39x39 images).
 
 Data files are assumed to be headerless, so user should retain lists of sizes (cols/rows) for data files. 
 
 All wavelet transforms can be applied on any data size. Classical wavelet application is:
 
-Data a0 a1 a2 a3 a4 a5....
+    Data:         a0 a1 a2 a3 a4 a5...  a(2n-1)
+    transform --> low0 high1 low2 high3... low(2n-2) high(2n-1)  
+    pack      --> low0 low2 low4... low(2n-2) high1 high3 high5... high(2n-1)
 
---> low0 high1 low2 high3....
+This implementation allows odd size data, and enables the transform to start from highpass. Perfect reconstruction is guaranteed as long as the user remembers to use the same boolean condition (startHigh = True/False) on the inverse transform. E.g.  
 
-This implementation can allow to start from highpass.
+    Data:                                          a0 a1 a2 a3 a4 a5...  a8  
+    [transform with startHigh = false] -->         low0 high1 low2 high3 low4 high5 low6 high7 low8  
+    (5 lowpass elements, 4 highpass elements)  
+    [pack] -->                                     low0 low2 low4 low6 low8 high1 high3 high5 high7  
+    [inverse transform with startHigh = false] --> a0 a1 a2 a3 a4 a5...  a8  
+
+or:
+
+    Data:                                          a0 a1 a2 a3 a4 a5...  a8  
+    [transform with startHigh = true] -->          high0 low1 high2 low3 high4 low5 high6 low7 high8  
+    (4 lowpass elements, 5 highpass elements)  
+    [pack] -->                                     low1 low3 low5 low7 high0 high2 high4 high6 high8  
+    [inverse transform with startHigh = false] --> a0 a1 a2 a3 a4 a5...  a8  
+
 
 Thus, for example, data of length 9 will have 5 highpass and 4 lowpass elements if startFroHigh is applied.
 
-Implementation uses some tools from James Fowler's QccPack (http://qccpack.sourceforge.net/).  
-Ispired by https://www.organicdesign.co.nz/Wavelet.c
+Implementation ispired by https://www.organicdesign.co.nz/Wavelet.c  
+Command line parameter parsing borrowed from James Fowler's QccPack (http://qccpack.sourceforge.net/).  
+
 
 # Structure
-**upper library**: --libxyn.h--
+When building, include **upper library** --libxyn.h--
 
     general options for all executables:  
         -v verbose - display verbose information (mainly I/O)
