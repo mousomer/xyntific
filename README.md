@@ -25,7 +25,7 @@ or:
     [transform with startHigh = true] -->          high0 low1 high2 low3 high4 low5 high6 low7 high8  
     (4 lowpass elements, 5 highpass elements)  
     [pack] -->                                     low1 low3 low5 low7 high0 high2 high4 high6 high8  
-    [inverse transform with startHigh = false] --> a0 a1 a2 a3 a4 a5...  a8  
+    [inverse transform with startHigh = true] -->  a0 a1 a2 a3 a4 a5...  a8  
 
 
 Thus, for example, data of length 9 will have 5 highpass and 4 lowpass elements if startFroHigh is applied.
