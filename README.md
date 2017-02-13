@@ -14,22 +14,26 @@ All wavelet transforms can be applied on any data size. Classical wavelet applic
 
 This implementation allows odd size data, and enables the transform to start from highpass. Perfect reconstruction is guaranteed as long as the user remembers to use the same boolean condition (startHigh = True/False) on the inverse transform. E.g.  
 
-    Data:                                          a0 a1 a2 a3 a4 a5...  a8  
-    [transform with startHigh = false] -->         low0 high1 low2 high3 low4 high5 low6 high7 low8  
-    (5 lowpass elements, 4 highpass elements)  
-    [pack] -->                                     low0 low2 low4 low6 low8 high1 high3 high5 high7  
-    [inverse transform with startHigh = false] --> a0 a1 a2 a3 a4 a5...  a8  
+Transform with startHigh = false (5 lowpass elements, 4 highpass elements):
 
-or:
-
-    Data:                                          a0 a1 a2 a3 a4 a5...  a8  
-    [transform with startHigh = true] -->          high0 low1 high2 low3 high4 low5 high6 low7 high8  
-    (4 lowpass elements, 5 highpass elements)  
-    [pack] -->                                     low1 low3 low5 low7 high0 high2 high4 high6 high8  
-    [inverse transform with startHigh = true] -->  a0 a1 a2 a3 a4 a5...  a8  
+| Data:      | a0     | a1     | a2    | a3     | a4    | a5     | a6    | a7    |a8     |
+|:----------:|:------:|:------:|:-----:|:------:|:-----:|:------:|:-----:|:-----:|:-----:|
+| Transform  | low0   | high1  | low2  | high3  | low4  | high5  | low6  | high7 | low8  |
+| Pack       | low0   | low2   | low4  | low6   | low8  | high1  | high3 | high5 | high7 |
+| Inverse    | a0     | a1     | a2    | a3     | a4    | a5     | a6    | a7    |a8     |
 
 
-Thus, for example, data of length 9 will have 5 highpass and 4 lowpass elements if startFroHigh is applied.
+or, Transform with startHigh = true (4 lowpass elements, 5 highpass elements):
+
+| Data:      | a0     | a1     | a2    | a3     | a4    | a5    | a6    | a7    |a8     |
+|:----------:|:------:|:------:|:-----:|:------:|:-----:|:-----:|:-----:|:-----:|:-----:|
+| Transform  | high0  | low1   | high2 | low3   | high4 | low5  | high6 | low7  | high8 |
+| Pack       | low1   | low3   | low5  | low7   | high0 | high2 | high4 | high6 | high8 |
+| Inverse    | a0     | a1     | a2    | a3     | a4    | a5    | a6    | a7    |a8     |
+
+
+
+Thus, for example, data of length 19 will have 10 highpass and 9 lowpass elements if startFroHigh is applied.
 
 Implementation ispired by https://www.organicdesign.co.nz/Wavelet.c  
 Command line parameter parsing borrowed from James Fowler's QccPack (http://qccpack.sourceforge.net/).  
