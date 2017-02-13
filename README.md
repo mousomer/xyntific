@@ -7,16 +7,16 @@ Data files are assumed to be headerless, so user should retain lists of sizes (c
 
 All wavelet transforms can be applied on any data size. Classical wavelet application is:
 
-| Data:      | a0     | a1     | a2    | a3     | a4       | a5     | ...       | a(2n-3)   |a(2n-2)    |a(2n-1)    |
-|:----------:|:------:|:------:|:-----:|:------:|:--------:|:------:|:---------:|:---------:|:---------:|:---------:|
-| Transform  | low0   | high1  | low2  | high3  | low3     | ...    | low(2n-4) | high(2n-3)| low(2n-2) | high(2n-1)| 
-| Pack       | low0   | low2   | low4  | ...    | low(2n-2)| high1  | high3     | high5     | ...       | high(2n-1)|
+| Data       | a0    | a1     | a2    | a3     | a4        | a5     | ...       | a(2n-3)    |a(2n-2)    |a(2n-1)     |
+|:----------:|:-----:|:------:|:-----:|:------:|:---------:|:------:|:---------:|:----------:|:---------:|:----------:|
+| Transform  | low0  | high1  | low2  | high3  | low3      | ...    | low(2n-4) | high(2n-3) | low(2n-2) | high(2n-1) | 
+| Pack       | low0  | low2   | low4  | ...    | low(2n-2) | high1  | high3     | high5      | ...       | high(2n-1) |
 
 This implementation allows odd size data, and enables the transform to start from highpass. Perfect reconstruction is guaranteed as long as the user remembers to use the same boolean condition (startHigh = True/False) on the inverse transform. E.g.  
 
 Transform with startHigh = false (5 lowpass elements, 4 highpass elements):
 
-| Data:      | a0     | a1     | a2    | a3     | a4    | a5     | a6    | a7    |a8     |
+| Data       | a0     | a1     | a2    | a3     | a4    | a5     | a6    | a7    |a8     |
 |:----------:|:------:|:------:|:-----:|:------:|:-----:|:------:|:-----:|:-----:|:-----:|
 | Transform  | low0   | high1  | low2  | high3  | low4  | high5  | low6  | high7 | low8  |
 | Pack       | low0   | low2   | low4  | low6   | low8  | high1  | high3 | high5 | high7 |
@@ -25,7 +25,7 @@ Transform with startHigh = false (5 lowpass elements, 4 highpass elements):
 
 or, Transform with startHigh = true (4 lowpass elements, 5 highpass elements):
 
-| Data:      | a0     | a1     | a2    | a3     | a4    | a5    | a6    | a7    |a8     |
+| Data       | a0     | a1     | a2    | a3     | a4    | a5    | a6    | a7    |a8     |
 |:----------:|:------:|:------:|:-----:|:------:|:-----:|:-----:|:-----:|:-----:|:-----:|
 | Transform  | high0  | low1   | high2 | low3   | high4 | low5  | high6 | low7  | high8 |
 | Pack       | low1   | low3   | low5  | low7   | high0 | high2 | high4 | high6 | high8 |
