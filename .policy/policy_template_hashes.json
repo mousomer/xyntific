@@ -1,0 +1,11 @@
+{
+  "hash_algorithm": "sha256",
+  "templates": {
+    "gov": "e6d08ef1a53e963f1f8cecf1c5c78904596f82c0655fef3c5ce1b94841a294d9",
+    "scripts/check_git_sanitation.sh": "8ca954fda1c9fa04565e9eece747d83f0d0257d8cdda90b18bd14471a04bd7af",
+    "scripts/check_policy_compliance.sh": "9ca9725f88a31253d556c2e2a557264f66ddb45870e4cd5dcc87efd3ea9b7484",
+    "scripts/check_policy_template_drift.sh": "2cf3d14d7ffdfa710aff8b68c7e515f5a94f1c446095a1183d3a138018710a4f",
+    "scripts/verify-governance.sh": "065d80c44c8a8a9465aaabdfb7d4a72bff3c424e8dc5ffd6da00ca9196816c77",
+    "scripts/verify.sh": "f556752e072410c87c84166c1fb3fbba5fae2e0c8154b188857a0e7143f1c97c"
+  }
+}

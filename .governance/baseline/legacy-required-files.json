@@ -1,0 +1,15 @@
+{
+  "required_files": [
+    ".workspace_policy_version.json",
+    "scripts/verify.sh",
+    "scripts/check_git_sanitation.sh",
+    "scripts/check_policy_compliance.sh",
+    "scripts/check_policy_template_drift.sh",
+    ".policy/policy_template_hashes.json"
+  ],
+  "required_directories": [
+    "docs",
+    "scripts",
+    ".policy"
+  ]
+}

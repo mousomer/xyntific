@@ -1,0 +1,6 @@
+# Immutable vendored machinery keeps one formatting contract across consumers.
+line-length = 88
+target-version = "py311"
+
+[lint]
+extend-select = ["C901"]

@@ -1,0 +1,5 @@
+{
+  "policy_version": "1.1.3",
+  "last_updated": "2026-02-24",
+  "notes": "Standardizes governance manifest metadata fields (ci_entrypoint, design_sources, secret_scan) for workspace-wide adoption; keeps contract_validation optional and repo-specific."
+}

@@ -1,0 +1,19 @@
+{
+  "defaults": {
+    "project": "xyntific"
+  },
+  "governance_pack": {
+    "lock": ".governance/pack.lock.json",
+    "required_schema": 1
+  },
+  "projects": [
+    {
+      "id": "xyntific",
+      "manifest": "config/governance/project.json",
+      "repository": "."
+    }
+  ],
+  "relationships": [],
+  "schema_version": 1,
+  "workspace_id": "xyntific-published-source-workspace"
+}
