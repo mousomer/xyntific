@@ -1,0 +1,35 @@
+name: Governance baseline
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+      - codex/harness-pack-1.4.0-published-base
+
+permissions:
+  contents: read
+
+jobs:
+  governance:
+    name: Governance-only verification
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Select governance Python
+        id: python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.14.8'
+      - name: Verify governance boundary
+        env:
+          GOVERNANCE_PYTHON: ${{ steps.python.outputs.python-path }}
+          PYTHONDONTWRITEBYTECODE: '1'
+          PYTHONNOUSERSITE: '1'
+        run: make check-governance

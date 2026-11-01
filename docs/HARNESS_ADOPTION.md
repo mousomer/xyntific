@@ -9,3 +9,23 @@ The published tree has no `test` or `test-sanitize` Make targets and no automate
 No unpublished research/product commits, corrected core implementation, experiment results, new science authority, or private data are included. Product repairs and any new test/acceptance contract require a separate approved scope. Existing inherited safety and environment constraints continue to apply.
 
 Select an existing approved governance interpreter through `GOVERNANCE_PYTHON` or an ignored local `.governance/workspace.local.json`; no environment creation, package installation or network operation is part of verification. Machine choices and collected evidence remain private. The preserved 1.1.3 compatibility scripts/version record are legacy interfaces, not the active runtime identity.
+
+
+## Continuous verification
+
+`.github/workflows/governance.yml` runs the same `make check-governance` contract
+for pull requests and pushes to the main branches or the approved adoption
+branch. The hosted Linux job selects Python 3.14.8 explicitly and has a ten-minute
+time limit. Checkout and Python setup actions use immutable commit pins; checkout
+credentials are not persisted and the workflow token has only `contents: read`.
+
+This lane checks published source and governance metadata only. It uses the
+standard-library governance tools profile, so it does not install Python packages
+or build the legacy C product. It reads no external corpus or machine overlay,
+uses no repository secrets, uploads no artifacts, and performs no data collection
+or model download. Existing private verification evidence is not a CI input.
+Hosted runner setup is CI infrastructure; local verification continues to use an
+already-approved interpreter without creating or changing an environment.
+
+A green CI job proves the declared governance boundary only. The missing legacy
+`xynRawVid` dependency and absent product acceptance contract remain open work.
