@@ -1,0 +1,479 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "workspace-governance telemetry observation envelope, version 1",
+  "description": "One immutable observation of an agent activity. event_type and payload describe what happened; source and attribution describe how it was observed; an optional enrichment block adds domain detail only the observer could see. Each observation keeps its own observation_id and is never merged with another or treated as the activity itself. Project-independent: no field names or enumerates a project's paths, authorities, experiments, or classifications; project values appear only as recorded data. A value that is unknown is omitted, never guessed. Within schema_version 1, later revisions may add event types, enum values, optional fields and event-specific payloads; readers skip event types they do not interpret and refuse a schema_version they do not support.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "observation_id",
+    "event_type",
+    "observed_at",
+    "recorded_at",
+    "workspace_id",
+    "checkout",
+    "context",
+    "source",
+    "attribution",
+    "payload"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "observation_id": {
+      "type": "string",
+      "minLength": 32
+    },
+    "event_type": {
+      "enum": [
+        "command_execution"
+      ]
+    },
+    "observed_at": {
+      "type": "string",
+      "minLength": 20,
+      "description": "When the underlying fact occurred, according to its source. For a completion, when the command finished; it started duration_ms earlier."
+    },
+    "recorded_at": {
+      "type": "string",
+      "minLength": 20,
+      "description": "When workspace-governance persisted or imported this observation. Selects the daily store file."
+    },
+    "workspace_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "checkout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path"
+      ],
+      "properties": {
+        "path": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "hmac_sha256",
+            "key_id",
+            "normalization"
+          ],
+          "properties": {
+            "hmac_sha256": {
+              "type": "string",
+              "minLength": 64
+            },
+            "key_id": {
+              "type": "string",
+              "minLength": 64
+            },
+            "normalization": {
+              "type": "string",
+              "minLength": 1
+            },
+            "length": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "branch": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "labels"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "absent",
+            "supplied",
+            "invalid"
+          ]
+        },
+        "session_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "task_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "agent": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "producer",
+        "producer_version"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "self_instrumented",
+            "transcript",
+            "hook",
+            "snapshot"
+          ]
+        },
+        "producer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "producer_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transcript": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "identity",
+            "sha256",
+            "parser",
+            "parser_version",
+            "location"
+          ],
+          "properties": {
+            "identity": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sha256": {
+              "type": "string",
+              "minLength": 64
+            },
+            "parser": {
+              "type": "string",
+              "minLength": 1
+            },
+            "parser_version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "location": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "attribution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "basis"
+      ],
+      "properties": {
+        "basis": {
+          "enum": [
+            "first_hand",
+            "tool_call",
+            "interval",
+            "declared"
+          ]
+        }
+      }
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "program",
+        "arguments",
+        "phase"
+      ],
+      "properties": {
+        "program": {
+          "type": "string",
+          "minLength": 1
+        },
+        "phase": {
+          "enum": [
+            "completion"
+          ]
+        },
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "prefix": {
+                "type": "string",
+                "minLength": 1
+              },
+              "hmac_sha256": {
+                "type": "string",
+                "minLength": 64
+              },
+              "key_id": {
+                "type": "string",
+                "minLength": 64
+              },
+              "normalization": {
+                "type": "string",
+                "minLength": 1
+              },
+              "length": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "oneOf": [
+              {
+                "additionalProperties": false,
+                "required": [
+                  "value"
+                ],
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              },
+              {
+                "additionalProperties": false,
+                "required": [
+                  "hmac_sha256",
+                  "key_id",
+                  "normalization"
+                ],
+                "properties": {
+                  "hmac_sha256": {
+                    "type": "string",
+                    "minLength": 64
+                  },
+                  "key_id": {
+                    "type": "string",
+                    "minLength": 64
+                  },
+                  "normalization": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "length": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              },
+              {
+                "additionalProperties": false,
+                "required": [
+                  "prefix",
+                  "hmac_sha256",
+                  "key_id",
+                  "normalization"
+                ],
+                "properties": {
+                  "prefix": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "hmac_sha256": {
+                    "type": "string",
+                    "minLength": 64
+                  },
+                  "key_id": {
+                    "type": "string",
+                    "minLength": 64
+                  },
+                  "normalization": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "length": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "exit_status": {
+          "type": "integer"
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "invocation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "process_id": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "parent_process_id": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "governance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "subcommand",
+            "diagnostics"
+          ],
+          "properties": {
+            "subcommand": {
+              "type": "string",
+              "minLength": 1
+            },
+            "diagnostics": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "code",
+                  "fact",
+                  "owner"
+                ],
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "fact": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "hmac_sha256",
+                      "key_id",
+                      "normalization"
+                    ],
+                    "properties": {
+                      "hmac_sha256": {
+                        "type": "string",
+                        "minLength": 64
+                      },
+                      "key_id": {
+                        "type": "string",
+                        "minLength": 64
+                      },
+                      "normalization": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "length": {
+                        "type": "integer",
+                        "minimum": 0
+                      }
+                    }
+                  },
+                  "owner": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "resolution": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "entries"
+              ],
+              "properties": {
+                "entries": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "mode": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "matched_scenario": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "routes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "authorities": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "authority_id",
+                      "source"
+                    ],
+                    "properties": {
+                      "authority_id": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "source": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "synthetic_probe": {
+          "type": "boolean",
+          "description": "Explicit telemetry readiness selftest; cannot establish ordinary command or product acceptance."
+        }
+      }
+    }
+  }
+}

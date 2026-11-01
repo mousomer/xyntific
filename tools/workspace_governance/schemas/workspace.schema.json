@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "workspace_id", "governance_pack", "projects", "relationships", "defaults"],
+  "properties": {
+    "schema_version": {"const": 1, "x-governance-use": "validation-only", "x-governance-behavior": "schema"},
+    "workspace_id": {"type": "string", "minLength": 1, "x-governance-use": "consumed", "x-governance-behavior": "identity"},
+    "governance_pack": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_schema", "lock"],
+      "x-governance-use": "consumed",
+      "properties": {
+        "required_schema": {"type": "integer", "minimum": 1, "x-governance-use": "consumed", "x-governance-behavior": "pack"},
+        "lock": {"type": "string", "minLength": 1, "x-governance-use": "consumed", "x-governance-behavior": "pack"}
+      },
+      "x-governance-behavior": "pack"
+    },
+    "projects": {
+      "type": "array",
+      "minItems": 1,
+      "x-governance-use": "consumed",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "repository", "manifest"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1, "x-governance-use": "consumed", "x-governance-behavior": "membership"},
+          "repository": {"type": "string", "minLength": 1, "x-governance-use": "consumed", "x-governance-behavior": "membership"},
+          "manifest": {"type": "string", "minLength": 1, "x-governance-use": "consumed", "x-governance-behavior": "membership"}
+        }
+      },
+      "x-governance-behavior": "membership"
+    },
+    "relationships": {
+      "type": "array",
+      "maxItems": 0,
+      "x-governance-use": "reserved-for-future-use",
+      "items": {"type": "object"},
+      "x-governance-behavior": "reserved"
+    },
+    "defaults": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["project"],
+      "x-governance-use": "consumed",
+      "properties": {
+        "project": {"type": "string", "minLength": 1, "x-governance-use": "consumed", "x-governance-behavior": "membership"}
+      },
+      "x-governance-behavior": "membership"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "artifact_roles": {
+    "README.md": "product_authority",
+    "docs/BACKLOG.md": "planning_document",
+    "docs/HARNESS_ADOPTION.md": "governance_treatment"
+  },
+  "authorities": [
+    {
+      "authority_id": "workspace-baseline",
+      "authority_type": "human",
+      "canonical_governance": true,
+      "exclusive": true,
+      "scope": "workspace-governance-baseline",
+      "source": "tools/workspace_governance/policies/workspace_baseline.md",
+      "source_type": "file"
+    },
+    {
+      "authority_id": "legacy-readme",
+      "authority_type": "human",
+      "canonical_governance": false,
+      "exclusive": true,
+      "scope": "published-legacy-product-documentation",
+      "source": "README.md",
+      "source_type": "file"
+    },
+    {
+      "authority_id": "harness-adoption",
+      "authority_type": "human",
+      "canonical_governance": false,
+      "exclusive": true,
+      "scope": "governance-only-adoption-boundary",
+      "source": "docs/HARNESS_ADOPTION.md",
+      "source_type": "file"
+    }
+  ],
+  "canonical_owner_set": {
+    "owners": {
+      "workspace-baseline": "tools/workspace_governance/policies/workspace_baseline.md"
+    }
+  },
+  "environment": {
+    "interpreter_override": "GOVERNANCE_PYTHON",
+    "preferred": ".governance/python",
+    "profile": "tools",
+    "route_tools": {}
+  },
+  "execution": {
+    "default_mode": "STRUCTURAL_CHANGE",
+    "profiles": {
+      "FEATURE": {
+        "exploration": [
+          "Read the published source authority and harness-adoption boundary."
+        ],
+        "final_evidence_rule": "Run make check-governance. Product acceptance remains unavailable; this command does not run a product build or test suite.",
+        "routes": [
+          "governance"
+        ]
+      },
+      "LOCAL_FIX": {
+        "exploration": [
+          "Read the published source authority and harness-adoption boundary."
+        ],
+        "final_evidence_rule": "Run make check-governance. Product acceptance remains unavailable; this command does not run a product build or test suite.",
+        "routes": [
+          "governance"
+        ]
+      },
+      "STRUCTURAL_CHANGE": {
+        "exploration": [
+          "Read the published source authority and harness-adoption boundary."
+        ],
+        "final_evidence_rule": "Run make check-governance. Product acceptance remains unavailable; this command does not run a product build or test suite.",
+        "routes": [
+          "governance"
+        ]
+      }
+    },
+    "representative_scenarios": []
+  },
+  "generated_surfaces": [],
+  "project": {
+    "id": "xyntific",
+    "name": "Xyntific published legacy source"
+  },
+  "required_authorities": [
+    "workspace-baseline",
+    "legacy-readme",
+    "harness-adoption"
+  ],
+  "role_bootstrap": {
+    "instruction_roots": [
+      "AGENTS.md",
+      "CLAUDE.md"
+    ]
+  },
+  "routes": {
+    "governance": {
+      "authority_refs": [
+        "workspace-baseline",
+        "legacy-readme",
+        "harness-adoption"
+      ],
+      "dispatch_paths": [
+        "AGENTS.md",
+        "docs/HARNESS_ADOPTION.md"
+      ],
+      "typical_verification_requirements": [
+        "governance_structure"
+      ]
+    }
+  },
+  "sanitation": {
+    "bounded_diagnostics": 25,
+    "repository_check": "scripts/check_git_sanitation.sh",
+    "secret_scanner": "tools/workspace_governance/sanitation.py"
+  },
+  "schema_version": 1,
+  "skill_adapters": [
+    {
+      "name": "governance-context",
+      "path": ".agents/skills/governance-context/SKILL.md",
+      "release_manifest_sha256": "f4500302c2cee58966055cfc906f146b51f841d3807c5a293870322b615a9373",
+      "sha256": "013a4a955f5272545c9d000b0514fa10458dc1a31314ab4d3dfd1f6f2bfea9f9",
+      "target": "tools/workspace_governance/skills/governance-context/SKILL.md"
+    },
+    {
+      "name": "governance-maintenance",
+      "path": ".agents/skills/governance-maintenance/SKILL.md",
+      "release_manifest_sha256": "f4500302c2cee58966055cfc906f146b51f841d3807c5a293870322b615a9373",
+      "sha256": "fd416bb129ee2a2c758537a238adf09a0615694c951d4ced029fa5bab76af10b",
+      "target": "tools/workspace_governance/skills/governance-maintenance/SKILL.md"
+    },
+    {
+      "name": "governance-context",
+      "path": ".claude/skills/governance-context/SKILL.md",
+      "release_manifest_sha256": "f4500302c2cee58966055cfc906f146b51f841d3807c5a293870322b615a9373",
+      "sha256": "013a4a955f5272545c9d000b0514fa10458dc1a31314ab4d3dfd1f6f2bfea9f9",
+      "target": "tools/workspace_governance/skills/governance-context/SKILL.md"
+    },
+    {
+      "name": "governance-maintenance",
+      "path": ".claude/skills/governance-maintenance/SKILL.md",
+      "release_manifest_sha256": "f4500302c2cee58966055cfc906f146b51f841d3807c5a293870322b615a9373",
+      "sha256": "fd416bb129ee2a2c758537a238adf09a0615694c951d4ced029fa5bab76af10b",
+      "target": "tools/workspace_governance/skills/governance-maintenance/SKILL.md"
+    }
+  ],
+  "verification": {
+    "canonical": {
+      "command": "make check-governance"
+    },
+    "full": {
+      "command": "make check-governance"
+    },
+    "rule": "Governance-only baseline. No existing product test contract is declared by the published legacy tree; do not treat governance success as product acceptance or mask the existing all-target failure.",
+    "targeted": "make check-governance"
+  }
+}

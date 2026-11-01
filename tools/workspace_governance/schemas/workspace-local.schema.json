@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version"],
+  "properties": {
+    "schema_version": {"const": 1, "x-governance-use": "validation-only", "x-governance-behavior": "schema"},
+    "interpreter": {"type": "string", "minLength": 1, "x-governance-use": "consumed", "x-governance-behavior": "local"},
+    "execution_mode": {"type": "string", "minLength": 1, "x-governance-use": "consumed", "x-governance-behavior": "local"},
+    "tool_paths": {
+      "type": "object",
+      "x-governance-use": "consumed",
+      "additionalProperties": {"type": "string", "minLength": 1},
+      "x-governance-behavior": "local"
+    },
+    "telemetry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled"],
+      "x-governance-use": "consumed",
+      "x-governance-behavior": "telemetry",
+      "properties": {
+        "enabled": {"type": "boolean", "x-governance-use": "consumed", "x-governance-behavior": "telemetry"}
+      }
+    },
+    "checkout_locations": {"type": "object", "maxProperties": 0, "x-governance-use": "reserved-for-future-use", "x-governance-behavior": "reserved"},
+    "cache_locations": {"type": "object", "maxProperties": 0, "x-governance-use": "reserved-for-future-use", "x-governance-behavior": "reserved"}
+  }
+}

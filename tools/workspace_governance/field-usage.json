@@ -1,0 +1,87 @@
+{
+  "schema": {
+    "classification": "validation-only",
+    "handler": "_schema_issues",
+    "test": "schema"
+  },
+  "reserved": {
+    "classification": "reserved-for-future-use",
+    "handler": "_schema_issues",
+    "test": "reserved"
+  },
+  "identity": {
+    "classification": "consumed",
+    "handler": "GovernanceResolver.resolve",
+    "test": "identity"
+  },
+  "membership": {
+    "classification": "consumed",
+    "handler": "GovernanceResolver.for_root",
+    "test": "membership"
+  },
+  "pack": {
+    "classification": "consumed",
+    "handler": "validate_pack",
+    "test": "pack"
+  },
+  "authority": {
+    "classification": "consumed",
+    "handler": "_authority_graph_issues / GovernanceResolver.explain",
+    "test": "authority"
+  },
+  "owner_set": {
+    "classification": "consumed",
+    "handler": "_authority_graph_issues",
+    "test": "owner_set"
+  },
+  "routes": {
+    "classification": "consumed",
+    "handler": "_route_facade / GovernanceResolver.resolve",
+    "test": "routes"
+  },
+  "verification": {
+    "classification": "consumed",
+    "handler": "GovernanceResolver.resolve",
+    "test": "verification"
+  },
+  "execution": {
+    "classification": "consumed",
+    "handler": "GovernanceResolver.resolve",
+    "test": "execution"
+  },
+  "facade": {
+    "classification": "consumed",
+    "handler": "_generated_surface_issues",
+    "test": "facade"
+  },
+  "environment": {
+    "classification": "consumed",
+    "handler": "doctor / resolve_interpreter",
+    "test": "environment"
+  },
+  "sanitation": {
+    "classification": "validation-only",
+    "handler": "validate_manifests / _schema_issues",
+    "test": "sanitation"
+  },
+  "local": {
+    "classification": "consumed",
+    "handler": "doctor / resolve_interpreter",
+    "test": "local"
+  },
+  "roles": {
+    "classification": "consumed",
+    "handler": "GovernanceResolver.role_index / _artifact_role_issues",
+    "test": "roles"
+  },
+  "telemetry": {
+    "classification": "consumed",
+    "handler": "GovernanceResolver.telemetry_settings",
+    "test": "telemetry"
+  },
+  "skill_adapters": {
+    "classification": "validation-only",
+    "handler": "_skill_adapter_issues",
+    "test": "skill_adapters"
+  }
+}

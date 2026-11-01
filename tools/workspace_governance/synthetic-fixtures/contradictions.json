@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {"id": "duplicate-exclusive-authority", "expected": "DUPLICATE_AUTHORITY", "mutation": "duplicate-exclusive-authority"},
+    {"id": "cross-layer-semantic-field", "expected": "CONFLICTING_VALUE", "mutation": "cross-layer-semantic-field"},
+    {"id": "broken-authority-reference", "expected": "BROKEN_REFERENCE", "mutation": "broken-authority-reference"},
+    {"id": "compatibility-facade-drift", "expected": "CONFLICTING_VALUE", "mutation": "compatibility-facade-drift"},
+    {"id": "modified-pack", "expected": "PACK_DRIFT", "mutation": "modified-pack"},
+    {"id": "tracked-machine-path", "expected": "CONFLICTING_VALUE", "mutation": "tracked-machine-path"},
+    {"id": "missing-interpreter", "expected": "ENVIRONMENT_MISMATCH", "mutation": "missing-interpreter"},
+    {"id": "wrong-python-version", "expected": "ENVIRONMENT_MISMATCH", "mutation": "wrong-python-version"},
+    {"id": "wrong-editable-checkout", "expected": "ENVIRONMENT_MISMATCH", "mutation": "wrong-editable-checkout"},
+    {"id": "ambiguous-project-routing", "expected": "AMBIGUOUS_AUTHORITY", "mutation": "ambiguous-project-routing"},
+    {"id": "relabelled-bootstrap-root", "expected": "CONFLICTING_VALUE", "mutation": "relabelled-bootstrap-root"},
+    {"id": "missing-role-declaration", "expected": "BROKEN_REFERENCE", "mutation": "missing-role-declaration"},
+    {"id": "valid-local-override", "expected": "ok", "mutation": "valid-local-override"},
+    {"id": "valid-local-fix-resolution", "expected": "ok", "mutation": "valid-local-fix-resolution"}
+  ]
+}

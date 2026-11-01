@@ -81,3 +81,12 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Local governance state and compatibility sanitation baseline
+.governance/workspace.local.json
+.governance/python
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.log

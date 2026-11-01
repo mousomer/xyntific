@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "name": "workspace-governance",
+  "version": "0.7.0",
+  "revision": "v0.7-harness-repair-1",
+  "version_file": "VERSION",
+  "lock_algorithm": "sha256-path-and-content-v1",
+  "pack_hash_excludes": [
+    "**/__pycache__/**",
+    "**/*.pyc",
+    "**/.DS_Store",
+    "**/.ruff_cache/**"
+  ],
+  "commands": [
+    "check",
+    "resolve",
+    "explain",
+    "doctor",
+    "sync",
+    "env",
+    "telemetry"
+  ],
+  "diagnostics": [
+    "DUPLICATE_AUTHORITY",
+    "CONFLICTING_VALUE",
+    "AMBIGUOUS_AUTHORITY",
+    "BROKEN_REFERENCE",
+    "PACK_DRIFT",
+    "ENVIRONMENT_MISMATCH"
+  ],
+  "work_types": [
+    "Planning",
+    "Coding",
+    "Manifest"
+  ],
+  "artifact_roles": [
+    {
+      "path": ".ruff.toml",
+      "role": "governance_treatment"
+    },
+    {
+      "path": "MANIFEST.json",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "VERSION",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "__init__.py",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "baseline.py",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "cli/__init__.py",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "cli/bootstrap.py",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "cli/gov.py",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "dependency_compatibility.py",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "diagnostics.py",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "field-usage.json",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "fleet.py",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "fleet_execution.py",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "fleet_support.py",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "policies/external_checkouts.md",
+      "role": "governance_treatment"
+    },
+    {
+      "path": "policies/ownership.md",
+      "role": "governance_treatment"
+    },
+    {
+      "path": "policies/workspace_baseline.md",
+      "role": "governance_treatment"
+    },
+    {
+      "path": "release.py",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "resolver/__init__.py",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "resolver/core.py",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "resolver/roles.py",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "runtime_floor.py",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "sanitation.py",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "schemas/project.schema.json",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "schemas/telemetry-event.v1.schema.json",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "schemas/workspace-local.schema.json",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "schemas/workspace.schema.json",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "skills/governance-context/SKILL.md",
+      "role": "governance_treatment"
+    },
+    {
+      "path": "skills/governance-maintenance/SKILL.md",
+      "role": "governance_treatment"
+    },
+    {
+      "path": "synthetic-fixtures/contradictions.json",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "telemetry.py",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "validators/__init__.py",
+      "role": "executable_machinery"
+    },
+    {
+      "path": "validators/core.py",
+      "role": "executable_machinery"
+    }
+  ],
+  "bootstrap_roots": [
+    "MANIFEST.json",
+    "resolver/roles.py",
+    "validators/core.py",
+    "fleet.py",
+    "fleet_support.py",
+    "fleet_execution.py",
+    "release.py"
+  ],
+  "obligation_comparators": {
+    "required_all_of": "set_superset",
+    "allowed_any_of": "set_subset",
+    "trigger_coverage": "set_superset",
+    "forbidden_set": "set_superset",
+    "permitted_set": "set_subset",
+    "exact_set": "equality",
+    "minimum": "numeric_gte",
+    "maximum": "numeric_lte",
+    "required_boolean": "false_to_true_only",
+    "identity": "equality",
+    "unknown": "human_review"
+  },
+  "write_compatibility": {
+    "Planning": {
+      "governance_treatment": "contradiction",
+      "executable_machinery": "contradiction",
+      "product_authority": "allowed",
+      "planning_document": "allowed",
+      "generated": "contradiction_unless_justified",
+      "bookkeeping": "allowed_if_subordinate"
+    },
+    "Coding": {
+      "governance_treatment": "contradiction",
+      "executable_machinery": "allowed",
+      "product_authority": "allowed_with_authority_obligations",
+      "planning_document": "allowed_if_subordinate",
+      "generated": "allowed_through_owning_generator",
+      "bookkeeping": "allowed"
+    },
+    "Manifest": {
+      "governance_treatment": "allowed",
+      "executable_machinery": "contradiction",
+      "product_authority": "contradiction_unless_justified",
+      "planning_document": "allowed_if_documenting_manifest_decision",
+      "generated": "allowed_through_owning_generator",
+      "bookkeeping": "allowed"
+    }
+  },
+  "field_usage": {
+    "schema_version": "validation-only",
+    "name": "consumed",
+    "version": "consumed",
+    "revision": "consumed",
+    "version_file": "consumed",
+    "lock_algorithm": "consumed",
+    "pack_hash_excludes": "consumed",
+    "commands": "validation-only",
+    "diagnostics": "validation-only",
+    "work_types": "validation-only",
+    "artifact_roles": "consumed",
+    "bootstrap_roots": "consumed",
+    "obligation_comparators": "validation-only",
+    "write_compatibility": "validation-only",
+    "field_usage": "validation-only",
+    "runtime": "consumed"
+  },
+  "runtime": {
+    "python_requires": ">=3.11"
+  }
+}

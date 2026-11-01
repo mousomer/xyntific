@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+GOVERNANCE_REPO_ROOT="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+GOVERNANCE_SELECTED_PYTHON="${GOVERNANCE_PYTHON:-}"
+if [[ -z "$GOVERNANCE_SELECTED_PYTHON" ]]; then
+  GOVERNANCE_SELECTED_PYTHON="$(python3 - "$GOVERNANCE_REPO_ROOT/.governance/workspace.local.json" <<'BOOTSTRAP'
+import json, sys
+from pathlib import Path
+try:
+    value = json.loads(Path(sys.argv[1]).read_text())["interpreter"]
+    if not isinstance(value, str) or not value or "\n" in value or "\r" in value:
+        raise ValueError("invalid interpreter")
+    print(value)
+except (OSError, KeyError, TypeError, ValueError):
+    raise SystemExit("Governance bootstrap requires an approved local interpreter overlay")
+BOOTSTRAP
+)"
+fi
+[[ -x "$GOVERNANCE_SELECTED_PYTHON" ]] || { echo "Approved governance interpreter is unusable" >&2; exit 1; }
+exec "$GOVERNANCE_SELECTED_PYTHON" "$GOVERNANCE_REPO_ROOT/tools/workspace_governance/cli/bootstrap.py" --root "$GOVERNANCE_REPO_ROOT" "$@"

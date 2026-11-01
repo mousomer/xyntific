@@ -79,3 +79,14 @@ clean:
 
 # End of makefile
 # DO NOT DELETE
+
+.PHONY: check-governance
+check-governance:
+
+# BEGIN workspace-governance managed verification
+.PHONY: workspace-governance-check
+workspace-governance-check:
+	@./scripts/verify-governance.sh
+
+check-governance: | workspace-governance-check
+# END workspace-governance managed verification
